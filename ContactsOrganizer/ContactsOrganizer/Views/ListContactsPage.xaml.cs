@@ -27,5 +27,6 @@ namespace ContactsOrganizer.Views
             this.BindingContext = null;
             this.BindingContext = this.contactListViewModel;
         }
+
     }
 }

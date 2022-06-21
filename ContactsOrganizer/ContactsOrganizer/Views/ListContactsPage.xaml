@@ -7,7 +7,7 @@
              Title="Liste des contacts"
              BackgroundColor="Cyan">
     <ContentPage.Content>
-        <CollectionView x:DataType="modelviews:ContactListViewModel" ItemsSource="{Binding ContactList}" SelectionMode="Single">
+        <CollectionView x:Name="cView" x:DataType="modelviews:ContactListViewModel" ItemsSource="{Binding ContactList}" SelectionMode="Single" SelectionChangedCommand="{Binding CmdNav}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid Padding="10" RowDefinitions="Auto, *" ColumnDefinitions="Auto, *" x:DataType="model:Contact">
