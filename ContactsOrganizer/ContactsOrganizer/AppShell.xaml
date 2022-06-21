@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ContactsOrganizer.AppShell"
+             xmlns:views="clr-namespace:ContactsOrganizer.Views">
+
+    <Shell.Resources>
+        <Style x:Key="BaseStyle"
+               TargetType="Element">
+            <Setter Property="Shell.BackgroundColor"
+                    Value="#333333" />
+            <Setter Property="Shell.ForegroundColor"
+                    Value="White" />
+            <Setter Property="Shell.TitleColor"
+                    Value="Beige" />
+            <Setter Property="Shell.TabBarTitleColor"
+                    Value="Beige"/>
+            <Setter Property="Shell.DisabledColor"
+                    Value="#B4FFFFFF" />
+            <Setter Property="Shell.UnselectedColor"
+                    Value="#95FFFFFF" />
+        </Style>
+    </Shell.Resources>
+
+    <TabBar>
+        <ShellContent Route="listContact" Title="Liste des contacts" Icon="contactListIcon.ico" Style="{StaticResource BaseStyle}" ContentTemplate="{DataTemplate views:ListContactsPage}"></ShellContent>
+        <ShellContent Route="addContact" Title="Ajouter un contact" Icon="addContactIcon.ico" Style="{StaticResource BaseStyle}" ContentTemplate="{DataTemplate views:AjouterContactPage}"></ShellContent>
+    </TabBar>
+
+</Shell>
