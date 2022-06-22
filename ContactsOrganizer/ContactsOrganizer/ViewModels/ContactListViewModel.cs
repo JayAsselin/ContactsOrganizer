@@ -17,9 +17,7 @@ namespace ContactsOrganizer.ViewModels
         public ObservableCollection<Contact> Contacts => new ObservableCollection<Contact>(ContactDBcontext.GetAll().OrderBy(n => n.Fname));
 
         public ICommand CmdNav { get;private set; }
-        // Have to figure out how to send the selection to another page..
         
-
         public ContactListViewModel()
         {
             this.CmdNav = new Command<Contact>(Tapped);
@@ -27,7 +25,6 @@ namespace ContactsOrganizer.ViewModels
 
         public async void Tapped(Contact selectedContact)
         {
-            //string json = JsonConvert.SerializeObject(selectedContact);
             Routing.RegisterRoute(nameof(GestContactPage), typeof(GestContactPage));
             await Shell.Current.GoToAsync($"{nameof(GestContactPage)}?Id={selectedContact.Id}");
         }

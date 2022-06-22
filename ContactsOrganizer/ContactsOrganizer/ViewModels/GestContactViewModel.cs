@@ -18,16 +18,15 @@ namespace ContactsOrganizer.ViewModels
     internal class GestContactViewModel:IQueryAttributable, INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        //void OnPropertyChanged([CallerMemberName] string name = null)
-        //{
-        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(name)));
-        //}
 
+        string id;
         public void ApplyQueryAttributes(IDictionary<string, string> query)
         {
-            string id = HttpUtility.UrlDecode(query["Id"]);
+            id = HttpUtility.UrlDecode(query["Id"]);
             ShowInfo(id);
         }
+        private Contact contact;
+        public Contact Contact { get; set; }
         public int GetId { get; set; }
         public string GetNom { get; set; }
         public string GetPrenom { get; set; }
@@ -42,12 +41,13 @@ namespace ContactsOrganizer.ViewModels
 
         public GestContactViewModel()
         {
-            this.CmdDelete = new Command<Contact>(DeleteContact);
+            this.CmdDelete = new Command(DeleteContact);
+            this.CmdModify = new Command(ModifyContact);
         }
 
-        public void ShowInfo(string id)
+        private Contact ShowInfo(string id)
         {
-            Contact current = ContactDBcontext.GetAll().Find(c => c.Id == int.Parse(id));
+            Contact current = ContactDBcontext.GetAll().FirstOrDefault(c => c.Id == int.Parse(id));
             GetNom = current.Lname;
             GetPrenom = current.Fname;
             GetInit = current.Initals;
@@ -62,17 +62,50 @@ namespace ContactsOrganizer.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(GetPhoto)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(GetTelWork)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(GetTelPerso)));
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(GetCourrielWork))); 
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(GetCourrielWork)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(GetCourrielPerso)));
+            return current;
         }
 
-        public async void DeleteContact(Contact contact)
+        private async void DeleteContact()
         {
-            var alert = await App.Current.MainPage.DisplayAlert("Confirmation", $"Voulez-vous vraiment supprimer {contact.Fname} {contact.Lname}?", "Oui", "Non");
+            Contact=ShowInfo(id);
+            var alert = await App.Current.MainPage.DisplayAlert("Confirmation", $"Voulez-vous vraiment supprimer {GetPrenom} {GetNom}?", "Oui", "Non");
             if (alert)
             {
-                ContactDBcontext.Delete(contact);
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Contact)));
+                ContactDBcontext.Delete(Contact);
+                App.Current.MainPage = new AppShell();
+            }
+        }
+
+        private async void ModifyContact()
+        {
+            var alert = await App.Current.MainPage.DisplayAlert("Confirmation", $"Voulez-vous vraiment modifier l'information de {GetPrenom} {GetNom}?", "Oui", "Non");
+            if (alert)
+            {
+                Contact = new Contact()
+                {
+                    Id = GetId,
+                    Lname = GetNom,
+                    Fname = GetPrenom,
+                    Initals = GetInit,
+                    Photo = GetPhoto,
+                    WorkPhone = GetTelWork,
+                    PrivatePhone = GetTelPerso,
+                    WorkEmail = GetCourrielWork,
+                    PrivateEmail = GetCourrielPerso
+                };
+                ContactDBcontext.Add(Contact);
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(GetId)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(GetNom)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(GetPrenom)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(GetInit)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(GetPhoto)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(GetTelWork)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(GetTelPerso)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(GetCourrielWork)));
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(GetCourrielPerso)));
+                App.Current.MainPage = new AppShell();
             }
         }
     }

@@ -42,7 +42,7 @@
                 </ScrollView>
             </Frame>
             <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" Margin="0,-20,0,25">
-                <Button x:Name="btnMod" x:DataType="viewmodel:GestContactViewModel" Text="Modifier" CornerRadius="10" Margin="20,0,20,0"/>
+                <Button x:Name="btnMod" x:DataType="viewmodel:GestContactViewModel" Command="{Binding CmdModify}" Text="Modifier" CornerRadius="10" Margin="20,0,20,0"/>
                 <Button x:Name="btnRem" x:DataType="viewmodel:GestContactViewModel" Command="{Binding CmdDelete}" Text="Supprimer" CornerRadius="10" Margin="35,0,0,0"/>
             </StackLayout>
         </StackLayout>
