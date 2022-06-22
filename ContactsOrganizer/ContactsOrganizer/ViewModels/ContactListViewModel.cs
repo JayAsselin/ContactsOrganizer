@@ -29,7 +29,7 @@ namespace ContactsOrganizer.ViewModels
         {
             //string json = JsonConvert.SerializeObject(selectedContact);
             Routing.RegisterRoute(nameof(GestContactPage), typeof(GestContactPage));
-            await Shell.Current.GoToAsync($"{nameof(GestContactPage)}?fname={selectedContact.Fname}");
+            await Shell.Current.GoToAsync($"{nameof(GestContactPage)}?Id={selectedContact.Id}");
         }
 
     }

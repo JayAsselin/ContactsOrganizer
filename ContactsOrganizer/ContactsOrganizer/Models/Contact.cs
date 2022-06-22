@@ -6,6 +6,7 @@ namespace ContactsOrganizer.Models
 {
     public class Contact
     {
+        public int Id { get; set; }
         public string Lname { get; set; }
         public string Fname { get; set; }
         public string Initals { get; set; }

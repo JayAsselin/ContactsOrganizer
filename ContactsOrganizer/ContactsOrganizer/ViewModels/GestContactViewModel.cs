@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Web;
+using System.Windows.Input;
 using System.Xml.Linq;
 using ContactsOrganizer.Data;
 using ContactsOrganizer.Models;
@@ -24,9 +25,10 @@ namespace ContactsOrganizer.ViewModels
 
         public void ApplyQueryAttributes(IDictionary<string, string> query)
         {
-            string fname = HttpUtility.UrlDecode(query["fname"]);
-            ShowInfo(fname);
+            string id = HttpUtility.UrlDecode(query["Id"]);
+            ShowInfo(id);
         }
+        public int GetId { get; set; }
         public string GetNom { get; set; }
         public string GetPrenom { get; set; }
         public string GetInit { get; set; }
@@ -35,15 +37,17 @@ namespace ContactsOrganizer.ViewModels
         public string GetTelPerso { get; set; }
         public string GetCourrielWork { get; set; }
         public string GetCourrielPerso { get; set; }
+        public ICommand CmdModify { get;private set; }
+        public ICommand CmdDelete { get;private set; }
 
         public GestContactViewModel()
         {
-            
+            this.CmdDelete = new Command<Contact>(DeleteContact);
         }
 
-        public void ShowInfo(string fname)
+        public void ShowInfo(string id)
         {
-            Contact current = ContactDBcontext.GetAll().Find(c => c.Fname == fname);
+            Contact current = ContactDBcontext.GetAll().Find(c => c.Id == int.Parse(id));
             GetNom = current.Lname;
             GetPrenom = current.Fname;
             GetInit = current.Initals;
@@ -60,6 +64,16 @@ namespace ContactsOrganizer.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(GetTelPerso)));
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(GetCourrielWork))); 
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(GetCourrielPerso)));
+        }
+
+        public async void DeleteContact(Contact contact)
+        {
+            var alert = await App.Current.MainPage.DisplayAlert("Confirmation", $"Voulez-vous vraiment supprimer {contact.Fname} {contact.Lname}?", "Oui", "Non");
+            if (alert)
+            {
+                ContactDBcontext.Delete(contact);
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Contact)));
+            }
         }
     }
 }

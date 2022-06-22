@@ -13,6 +13,7 @@ namespace ContactsOrganizer.Data
         {
             new Contact
             {
+                Id = 1,
                 Lname = "Asselin",
                 Fname = "Jerome",
                 Initals = "JA",
@@ -24,6 +25,7 @@ namespace ContactsOrganizer.Data
             },
             new Contact
             {
+                Id = 2,
                 Lname = "Brisson",
                 Fname = "Lisa",
                 Initals = "LB",
@@ -35,6 +37,7 @@ namespace ContactsOrganizer.Data
             },
             new Contact
             {
+                Id = 3,
                 Lname = "Courcy",
                 Fname = "Dominic",
                 Initals = "DC",
@@ -45,7 +48,8 @@ namespace ContactsOrganizer.Data
                 PrivateEmail="do@gmail.com"
             },
             new Contact
-            {
+            {   
+                Id = 4,
                 Lname = "Lesage",
                 Fname = "JR",
                 Initals = "JL",
@@ -56,7 +60,8 @@ namespace ContactsOrganizer.Data
                 PrivateEmail="jrl@hotmail.com"
             },
             new Contact
-            {
+            {   
+                Id = 5,
                 Lname = "Duquette",
                 Fname = "Yves",
                 Initals = "YD",
@@ -67,7 +72,8 @@ namespace ContactsOrganizer.Data
                 PrivateEmail="duke@hotmail.com"
             },
             new Contact
-            {
+            {   
+                Id = 6,
                 Lname = "Reidy",
                 Fname = "Aylwin",
                 Initals = "AR",
@@ -79,6 +85,7 @@ namespace ContactsOrganizer.Data
             },
             new Contact
             {
+                Id = 7,
                 Lname = "LeGrand",
                 Fname = "Matz",
                 Initals = "ML",
@@ -90,6 +97,7 @@ namespace ContactsOrganizer.Data
             },
             new Contact
             {
+                Id = 8,
                 Lname = "Dukes",
                 Fname = "Geary",
                 Initals = "GD",
@@ -101,6 +109,7 @@ namespace ContactsOrganizer.Data
             },
             new Contact
             {
+                Id = 9,
                 Lname = "Lan",
                 Fname = "Michel",
                 Initals = "ML",
@@ -112,6 +121,7 @@ namespace ContactsOrganizer.Data
             },
             new Contact
             {
+                Id = 10,
                 Lname = "Yocum",
                 Fname = "Levin",
                 Initals = "LY",
@@ -123,6 +133,7 @@ namespace ContactsOrganizer.Data
             },
             new Contact
             {
+                Id = 11,
                 Lname = "Bohannon",
                 Fname = "Levin",
                 Initals = "LB",
@@ -134,6 +145,7 @@ namespace ContactsOrganizer.Data
             },
             new Contact
             {
+                Id = 12,
                 Lname = "Yocum",
                 Fname = "Noam",
                 Initals = "NY",
@@ -145,6 +157,7 @@ namespace ContactsOrganizer.Data
             },
             new Contact
             {
+                Id = 13,
                 Lname = "Whitworth",
                 Fname = "Radhika",
                 Initals = "RW",
@@ -156,6 +169,7 @@ namespace ContactsOrganizer.Data
             },
             new Contact
             {
+                Id = 14,
                 Lname = "Neel",
                 Fname = "Fabiana",
                 Initals = "FN",
@@ -167,6 +181,7 @@ namespace ContactsOrganizer.Data
             },
             new Contact
             {
+                Id = 15,
                 Lname = "Whitworth",
                 Fname = "Ysolde",
                 Initals = "YW",
@@ -178,6 +193,7 @@ namespace ContactsOrganizer.Data
             },
             new Contact
             {
+                Id = 16,
                 Lname = "Borst",
                 Fname = "Fabiana",
                 Initals = "FB",
@@ -189,6 +205,7 @@ namespace ContactsOrganizer.Data
             },
             new Contact
             {
+                Id = 17,
                 Lname = "Soza",
                 Fname = "Woorin",
                 Initals = "WS",
@@ -210,7 +227,12 @@ namespace ContactsOrganizer.Data
         }
         public static void Delete(Contact contact)
         {
-            ContactDBcontext.ContactList.Remove(ContactDBcontext.ContactList.First(element => element.Fname == contact.Fname));
+            ContactDBcontext.ContactList.Remove(ContactDBcontext.ContactList.First(element => element.Id == contact.Id));
+        }
+        public static int GetMaxId()
+        {
+            int maxId = ContactDBcontext.ContactList.Max(c => Convert.ToInt32(c.Id));
+            return maxId;
         }
     }
 }
