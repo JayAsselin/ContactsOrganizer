@@ -9,35 +9,35 @@
             <Frame BackgroundColor="DimGray" CornerRadius="20" Margin="30,20,30,40">
                 <ScrollView>
                     <Grid RowDefinitions="auto,*" ColumnDefinitions="1*,3*" x:DataType="viewmodels:AddContactViewModel">
-                        <Label Grid.ColumnSpan="2" Text="Information du contact" TextColor="DarkCyan" FontSize="Title" HorizontalOptions="CenterAndExpand"/>
+                        <!--<Label Grid.ColumnSpan="2" Text="Information du contact" TextColor="DarkCyan" FontSize="Title" HorizontalOptions="CenterAndExpand"/>-->
+                        <!--<Line Grid.Row="1" Grid.ColumnSpan="2" Stroke="DarkCyan" StrokeThickness="2" X1="0" X2="310"/>-->
+                        
+                        <Label  Text="Nom :" TextColor="Beige" VerticalOptions="Center" HorizontalOptions="Start" FontAttributes="Bold"/>
+                        <Entry x:Name="lname" Text="{Binding AddNom}" Keyboard="Text" Grid.Column="1" VerticalOptions="End"/>
                         <Line Grid.Row="1" Grid.ColumnSpan="2" Stroke="DarkCyan" StrokeThickness="2" X1="0" X2="310"/>
                         
-                        <Label Grid.Row="2" Text="Nom :" TextColor="Beige" VerticalOptions="Center" HorizontalOptions="Start" FontAttributes="Bold"/>
-                        <Entry x:Name="lname" Text="{Binding AddNom}" Keyboard="Text" Grid.Row="2" Grid.Column="1" VerticalOptions="End"/>
+                        <Label Grid.Row="2" Text="Prenom :" TextColor="Beige" VerticalOptions="Center" HorizontalOptions="Start"  FontAttributes="Bold"/>
+                        <Entry x:Name="fname" Text="{Binding AddPrenom}" Grid.Row="2" Grid.Column="1" Keyboard="Text" VerticalOptions="End"/>
                         <Line Grid.Row="3" Grid.ColumnSpan="2" Stroke="DarkCyan" StrokeThickness="2" X1="0" X2="310"/>
                         
-                        <Label Grid.Row="4" Text="Prenom :" TextColor="Beige" VerticalOptions="Center" HorizontalOptions="Start"  FontAttributes="Bold"/>
-                        <Entry x:Name="fname" Text="{Binding AddPrenom}" Grid.Row="4" Grid.Column="1" Keyboard="Text" VerticalOptions="End"/>
+                        <Label Grid.Row="4" Text="Initiales :" TextColor="Beige" VerticalOptions="Center" HorizontalOptions="Start"  FontAttributes="Bold"/>
+                        <Entry x:Name="init" Text="{Binding AddInit}" Grid.Row="4" Grid.Column="1" Keyboard="Text" VerticalOptions="End"/>
                         <Line Grid.Row="5" Grid.ColumnSpan="2" Stroke="DarkCyan" StrokeThickness="2" X1="0" X2="310"/>
                         
-                        <Label Grid.Row="6" Text="Initiales :" TextColor="Beige" VerticalOptions="Center" HorizontalOptions="Start"  FontAttributes="Bold"/>
-                        <Entry x:Name="init" Text="{Binding AddInit}" Grid.Row="6" Grid.Column="1" Keyboard="Text" VerticalOptions="End"/>
+                        <Label Grid.Row="6" Text="Courriel travail :" TextColor="Beige" VerticalOptions="Center" HorizontalOptions="Start"  FontAttributes="Bold"/>
+                        <Entry x:Name="workEmail" Text="{Binding AddCourrielWork}" Grid.Row="6" Grid.Column="1" Keyboard="Email" VerticalOptions="Center"/>
                         <Line Grid.Row="7" Grid.ColumnSpan="2" Stroke="DarkCyan" StrokeThickness="2" X1="0" X2="310"/>
                         
-                        <Label Grid.Row="8" Text="Courriel travail :" TextColor="Beige" VerticalOptions="Center" HorizontalOptions="Start"  FontAttributes="Bold"/>
-                        <Entry x:Name="workEmail" Text="{Binding AddCourrielWork}" Grid.Row="8" Grid.Column="1" Keyboard="Email" VerticalOptions="Center"/>
+                        <Label Grid.Row="8" Text="Courriel personnel :" TextColor="Beige" VerticalOptions="Center" HorizontalOptions="Start"  FontAttributes="Bold"/>
+                        <Entry x:Name="privateEmail" Text="{Binding AddCourrielPerso}" Grid.Row="8" Grid.Column="1" Keyboard="Email" VerticalOptions="Center"/>
                         <Line Grid.Row="9" Grid.ColumnSpan="2" Stroke="DarkCyan" StrokeThickness="2" X1="0" X2="310"/>
                         
-                        <Label Grid.Row="10" Text="Courriel personnel :" TextColor="Beige" VerticalOptions="Center" HorizontalOptions="Start"  FontAttributes="Bold"/>
-                        <Entry x:Name="privateEmail" Text="{Binding AddCourrielPerso}" Grid.Row="10" Grid.Column="1" Keyboard="Email" VerticalOptions="Center"/>
+                        <Label Grid.Row="10" Text="Telephone travail :" TextColor="Beige" VerticalOptions="Center" HorizontalOptions="Start"  FontAttributes="Bold"/>
+                        <Entry x:Name="workPhone" Text="{Binding AddTelWork}" Grid.Row="10" Grid.Column="1" Keyboard="Telephone" VerticalOptions="Center"/>
                         <Line Grid.Row="11" Grid.ColumnSpan="2" Stroke="DarkCyan" StrokeThickness="2" X1="0" X2="310"/>
                         
-                        <Label Grid.Row="12" Text="Telephone travail :" TextColor="Beige" VerticalOptions="Center" HorizontalOptions="Start"  FontAttributes="Bold"/>
-                        <Entry x:Name="workPhone" Text="{Binding AddTelWork}" Grid.Row="12" Grid.Column="1" Keyboard="Telephone" VerticalOptions="Center"/>
-                        <Line Grid.Row="13" Grid.ColumnSpan="2" Stroke="DarkCyan" StrokeThickness="2" X1="0" X2="310"/>
-                        
-                        <Label Grid.Row="14" Text="Telephone  personnel :" TextColor="Beige" VerticalOptions="Center" HorizontalOptions="Start"  FontAttributes="Bold"/>
-                        <Entry x:Name="privatePhone" Text="{Binding AddTelPerso}" Grid.Row="14" Grid.Column="1" Keyboard="Telephone" VerticalOptions="Center"/>
+                        <Label Grid.Row="12" Text="Telephone  personnel :" TextColor="Beige" VerticalOptions="Center" HorizontalOptions="Start"  FontAttributes="Bold"/>
+                        <Entry x:Name="privatePhone" Text="{Binding AddTelPerso}" Grid.Row="12" Grid.Column="1" Keyboard="Telephone" VerticalOptions="Center"/>
                     </Grid>
                 </ScrollView>
             </Frame>

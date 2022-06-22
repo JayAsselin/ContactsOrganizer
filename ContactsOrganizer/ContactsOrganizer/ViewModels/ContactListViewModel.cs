@@ -1,6 +1,7 @@
 ﻿using ContactsOrganizer.Data;
 using ContactsOrganizer.Models;
 using ContactsOrganizer.Views;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,7 +14,7 @@ namespace ContactsOrganizer.ViewModels
 {
     public class ContactListViewModel
     {
-        public ObservableCollection<Contact> ContactList => new ObservableCollection<Contact>(ContactDBcontext.GetAll().OrderBy(n => n.Fname));
+        public ObservableCollection<Contact> Contacts => new ObservableCollection<Contact>(ContactDBcontext.GetAll().OrderBy(n => n.Fname));
 
         public ICommand CmdNav { get;private set; }
         // Have to figure out how to send the selection to another page..
@@ -21,15 +22,22 @@ namespace ContactsOrganizer.ViewModels
 
         public ContactListViewModel()
         {
-        this.CmdNav = new Command(() =>
+            this.CmdNav = new Command<Contact>(Tapped);
+        //{
+        //    var selectedItem = CollectionView.SelectedItemProperty;
+        //    if (selectedItem != null)
+        //    {
+        //        App.Current.MainPage.Navigation.PushAsync(new GestContactPage());
+        //        selectedItem = null;
+        //    }
+        //});
+        }
+
+        async void Tapped(Contact selectedContact)
         {
-            var selectedItem = CollectionView.SelectedItemProperty;
-            if (selectedItem != null)
-            {
-                App.Current.MainPage.Navigation.PushAsync(new GestContactPage());
-                selectedItem = null;
-            }
-        });
+            string json = JsonConvert.SerializeObject(selectedContact);
+            Routing.RegisterRoute("detailPage", typeof(GestContactPage));
+            await Shell.Current.GoToAsync($"detailPage?contact={json}");
         }
 
     }

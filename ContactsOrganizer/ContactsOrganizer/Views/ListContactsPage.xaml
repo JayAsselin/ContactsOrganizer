@@ -7,7 +7,7 @@
              Title="Liste des contacts"
              BackgroundColor="Cyan">
     <ContentPage.Content>
-        <CollectionView x:Name="cView" x:DataType="modelviews:ContactListViewModel" ItemsSource="{Binding ContactList}" SelectionMode="Single" SelectionChangedCommand="{Binding CmdNav}">
+        <CollectionView x:Name="cView" x:DataType="modelviews:ContactListViewModel" ItemsSource="{Binding Contacts}" SelectionMode="Single">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid Padding="10" RowDefinitions="Auto, *" ColumnDefinitions="Auto, *" x:DataType="model:Contact">
@@ -35,6 +35,9 @@
                                VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Padding="10,0,0,0" 
                                    TextColor="Black"/>
                             <Line Stroke="Black" StrokeThickness="2" X1="0" X2="400" Grid.Row="3" Grid.ColumnSpan="3" Margin="0,20,0,0"/>
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type modelviews:ContactListViewModel}}, Path=CmdNav}" CommandParameter="{Binding .}"/>
+                        </Grid.GestureRecognizers>
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
