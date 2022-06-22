@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Web;
+using System.Xml.Linq;
 using ContactsOrganizer.Data;
 using ContactsOrganizer.Models;
 using Newtonsoft.Json;
@@ -13,27 +14,18 @@ using Xamarin.Forms;
 
 namespace ContactsOrganizer.ViewModels
 {
-    [QueryProperty(nameof(JsonInfo), "contact")]
-    internal class GestContactViewModel:INotifyPropertyChanged
+    internal class GestContactViewModel:IQueryAttributable, INotifyPropertyChanged
     {
-        private string jsonInfo;
-
         public event PropertyChangedEventHandler PropertyChanged;
-        void OnPropertyChanged([CallerMemberName] string name = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(name)));
-        }
+        //void OnPropertyChanged([CallerMemberName] string name = null)
+        //{
+        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(name)));
+        //}
 
-        public string JsonInfo
+        public void ApplyQueryAttributes(IDictionary<string, string> query)
         {
-            get { return jsonInfo; }
-            set
-            {
-                jsonInfo = HttpUtility.UrlDecode(value);
-                var current = JsonConvert.DeserializeObject<Contact>(jsonInfo);
-                OnPropertyChanged();
-                //ShowJson(jsonInfo);
-            }
+            string fname = HttpUtility.UrlDecode(query["fname"]);
+            ShowInfo(fname);
         }
         public string GetNom { get; set; }
         public string GetPrenom { get; set; }
@@ -49,16 +41,25 @@ namespace ContactsOrganizer.ViewModels
             
         }
 
-        //public void ShowJson(string getJson)
-        //{
-        //    var current = JsonConvert.DeserializeObject<Contact>(getJson);
-        //    GetNom = current.Lname;
-        //    GetPrenom = current.Fname;
-        //    GetInit = current.Initals;
-        //    GetTelWork = current.WorkPhone;
-        //    GetTelPerso = current.PrivatePhone;
-        //    GetCourrielWork = current.WorkEmail;
-        //    GetCourrielPerso = current.PrivateEmail;
-        //}
+        public void ShowInfo(string fname)
+        {
+            Contact current = ContactDBcontext.GetAll().Find(c => c.Fname == fname);
+            GetNom = current.Lname;
+            GetPrenom = current.Fname;
+            GetInit = current.Initals;
+            GetPhoto = current.Photo;
+            GetTelWork = current.WorkPhone;
+            GetTelPerso = current.PrivatePhone;
+            GetCourrielWork = current.WorkEmail;
+            GetCourrielPerso = current.PrivateEmail;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(GetNom)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(GetPrenom)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(GetInit)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(GetPhoto)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(GetTelWork)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(GetTelPerso)));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(GetCourrielWork))); 
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(GetCourrielPerso)));
+        }
     }
 }

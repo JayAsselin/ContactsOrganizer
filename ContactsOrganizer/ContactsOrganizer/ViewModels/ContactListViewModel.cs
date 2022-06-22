@@ -23,21 +23,13 @@ namespace ContactsOrganizer.ViewModels
         public ContactListViewModel()
         {
             this.CmdNav = new Command<Contact>(Tapped);
-        //{
-        //    var selectedItem = CollectionView.SelectedItemProperty;
-        //    if (selectedItem != null)
-        //    {
-        //        App.Current.MainPage.Navigation.PushAsync(new GestContactPage());
-        //        selectedItem = null;
-        //    }
-        //});
         }
 
-        async void Tapped(Contact selectedContact)
+        public async void Tapped(Contact selectedContact)
         {
-            string json = JsonConvert.SerializeObject(selectedContact);
-            Routing.RegisterRoute("detailPage", typeof(GestContactPage));
-            await Shell.Current.GoToAsync($"detailPage?contact={json}");
+            //string json = JsonConvert.SerializeObject(selectedContact);
+            Routing.RegisterRoute(nameof(GestContactPage), typeof(GestContactPage));
+            await Shell.Current.GoToAsync($"{nameof(GestContactPage)}?fname={selectedContact.Fname}");
         }
 
     }

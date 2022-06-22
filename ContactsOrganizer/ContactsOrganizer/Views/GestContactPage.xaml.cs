@@ -15,13 +15,6 @@ namespace ContactsOrganizer.Views
         public GestContactPage()
         {
             InitializeComponent();
-            this.BindingContext = this;
-        }
-
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-            this.BindingContext = null;
             this.BindingContext = new GestContactViewModel();
         }
     }
