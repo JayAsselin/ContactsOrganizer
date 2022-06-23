@@ -10,7 +10,7 @@ using Xamarin.Forms;
 
 namespace ContactsOrganizer.ViewModels
 {
-    internal class AddContactViewModel:INotifyPropertyChanged
+    internal class AddContactViewModel : INotifyPropertyChanged
     {
         public int Id { get; set; }
         public string AddNom { get; set; }
@@ -33,23 +33,37 @@ namespace ContactsOrganizer.ViewModels
 
         public async void AddContact()
         {
-            Contact newContact = new Contact()
+            try
             {
-                Id = this.Id,
-                Lname = this.AddNom,
-                Fname = this.AddPrenom,
-                Initials = this.AddInit,
-                Photo = "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png",
-                WorkEmail = this.AddCourrielWork,
-                PrivateEmail = this.AddCourrielPerso,
-                WorkPhone = this.AddTelWork,
-                PrivatePhone = this.AddTelPerso
-            };
-            ContactDBcontext.Add(newContact);
-            this.NewId = ContactDBcontext.GetMaxId() + 1;
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(NewId)));
-            await Application.Current.MainPage.DisplayAlert("Info", $"Le contact {this.AddPrenom} {this.AddNom} a ete ajouter avec succes!", "Ok");
-            App.Current.MainPage = new AppShell();
+                Contact newContact = new Contact()
+                {
+                    Id = this.Id,
+                    Lname = this.AddNom,
+                    Fname = this.AddPrenom,
+                    Initials = this.AddInit,
+                    Photo = "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png",
+                    WorkEmail = this.AddCourrielWork,
+                    PrivateEmail = this.AddCourrielPerso,
+                    WorkPhone = this.AddTelWork,
+                    PrivatePhone = this.AddTelPerso
+                };
+                if (newContact == null)
+                    await App.Current.MainPage.DisplayAlert("Attention", "Vous devez remplir toutes les infos du contact.", "Ok");
+
+                else
+                {
+                    ContactDBcontext.Add(newContact);
+                    this.NewId = ContactDBcontext.GetMaxId() + 1;
+                    this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(NewId)));
+                    await Application.Current.MainPage.DisplayAlert("Info", $"Le contact {this.AddPrenom} {this.AddNom} a ete ajouter avec succes!", "Ok");
+                    App.Current.MainPage = new AppShell();
+                }
+            }
+            catch (Exception ex)
+            {
+                await App.Current.MainPage.DisplayAlert("Attention", ex.Message, "Ok");
+            }
+
         }
     }
 }

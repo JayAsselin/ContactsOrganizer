@@ -29,7 +29,7 @@ namespace ContactsOrganizer.Models
                 if(regNom.IsMatch(value))
                     _lname = value;
                 else
-                    App.Current.MainPage.DisplayAlert("Attention","Le nom doit commencer par une majuscules suivies de 2 à 15 minuscules","Ok");
+                    throw new Exception("Le nom doit commencer par une majuscules suivies de 2 à 15 minuscules");
             } }
         public string Fname { get => _fname; 
             set 
@@ -37,7 +37,7 @@ namespace ContactsOrganizer.Models
                 if(regNom.IsMatch(value))
                     _fname = value;
                 else
-                    App.Current.MainPage.DisplayAlert("Attention", "Le prenom doit commencer par une majuscules suivies de 2 à 15 minuscules", "Ok");
+                    throw new Exception("Le prenom doit commencer par une majuscules suivies de 2 à 15 minuscules");
             } }
         public string Initials { get => _initials; 
             set 
@@ -45,7 +45,7 @@ namespace ContactsOrganizer.Models
                 if(regInit.IsMatch(value))
                     _initials = value; 
                 else
-                    App.Current.MainPage.DisplayAlert("Attention", "Les initials doivent etre 2 lettres majuscules", "Ok");
+                    throw new Exception("Les initials doivent etre 2 lettres majuscules");
             } }
         public string Photo { get; set; }
         public string WorkEmail { get => _workEmail; 
@@ -54,7 +54,7 @@ namespace ContactsOrganizer.Models
                 if(regCourriel.IsMatch(value))
                     _workEmail = value;
                 else
-                    App.Current.MainPage.DisplayAlert("Attention", "Le courriel doit être sous un format valide ex: nomcourriel@fournisseur.com", "Ok");
+                    throw new Exception("Le courriel doit être sous un format valide ex: nomcourriel@fournisseur.com");
             } }
         public string PrivateEmail { get => _privateEmail; 
             set 
@@ -62,7 +62,7 @@ namespace ContactsOrganizer.Models
                 if(regCourriel.IsMatch(value))
                     _privateEmail = value;
                 else
-                    App.Current.MainPage.DisplayAlert("Attention", "Le courriel doit être sous un format valide ex: nomcourriel@fournisseur.com ou ca", "Ok");
+                    throw new Exception("Le courriel doit être sous un format valide ex: nomcourriel@fournisseur.com ou ca");
             } }
         public string WorkPhone { get => _workPhone; 
             set 
@@ -70,7 +70,7 @@ namespace ContactsOrganizer.Models
                 if(regTelephone.IsMatch(value))
                     _workPhone = value;  
                 else
-                    App.Current.MainPage.DisplayAlert("Attention","Le numéro de téléphone doit être sous ce format ex: (555) 555-5555","Ok");
+                    throw new Exception("Le numéro de téléphone doit être sous ce format ex: (555) 555-5555");
             } }
         public string PrivatePhone { get => _privatePhone; 
             set 
@@ -78,7 +78,7 @@ namespace ContactsOrganizer.Models
                 if(regTelephone.IsMatch(value))
                     _privatePhone = value; 
                 else
-                    App.Current.MainPage.DisplayAlert("Attentio","Le numéro de téléphone doit être sous ce format ex: (555) 555-5555","Ok");
+                    throw new Exception("Le numéro de téléphone doit être sous ce format ex: (555) 555-5555");
             } }
     }
 }

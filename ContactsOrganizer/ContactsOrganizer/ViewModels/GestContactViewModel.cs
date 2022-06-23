@@ -22,10 +22,10 @@ namespace ContactsOrganizer.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyChanged));
         }
-        string id;
+        
         public void ApplyQueryAttributes(IDictionary<string, string> query)
         {
-            id = HttpUtility.UrlDecode(query["Id"]);
+            string id = HttpUtility.UrlDecode(query["Id"]);
             ShowInfo(id);
         }
         private Contact contact;
@@ -57,9 +57,10 @@ namespace ContactsOrganizer.ViewModels
             this.CmdModify = new Command(ModifyContact);
         }
 
-        private Contact ShowInfo(string id)
+        private void ShowInfo(string id)
         {
             Contact current = ContactDBcontext.GetAll().Find(c => c.Id == int.Parse(id));
+            GetId = current.Id;
             GetNom = current.Lname;
             GetPrenom = current.Fname;
             GetInit = current.Initials;
@@ -68,24 +69,22 @@ namespace ContactsOrganizer.ViewModels
             GetTelPerso = current.PrivatePhone;
             GetCourrielWork = current.WorkEmail;
             GetCourrielPerso = current.PrivateEmail;
-            return current;
         }
 
         private async void DeleteContact()
         {
-            Contact=ShowInfo(id);
+            Contact current = ContactDBcontext.GetAll().Find(c => c.Id == GetId);
             var alert = await App.Current.MainPage.DisplayAlert("Confirmation", $"Voulez-vous vraiment supprimer {GetPrenom} {GetNom}?", "Oui", "Non");
             if (alert)
             {
-                ContactDBcontext.Delete(Contact);
-                App.Current.MainPage = new AppShell();
+                ContactDBcontext.Delete(current);
+                await App.Current.MainPage.Navigation.PopAsync();
             }
         }
 
-        // Methode fonctionne pas tout a faite comme il faudrait..
         private async void ModifyContact()
         {
-            var update = ContactDBcontext.GetAll().Find(c => c.Id == int.Parse(id));
+            var update = ContactDBcontext.GetAll().Find(c => c.Id == GetId);
             var alert = await App.Current.MainPage.DisplayAlert("Confirmation", $"Voulez-vous vraiment modifier l'information de {GetPrenom} {GetNom}?", "Oui", "Non");
             if (alert)
             {
@@ -98,8 +97,7 @@ namespace ContactsOrganizer.ViewModels
                 update.PrivatePhone = GetTelPerso;
                 update.WorkEmail = GetCourrielWork;
                 update.PrivateEmail = GetCourrielPerso;
-
-                App.Current.MainPage = new AppShell();
+                await App.Current.MainPage.Navigation.PopAsync();
             }
         }
     }
