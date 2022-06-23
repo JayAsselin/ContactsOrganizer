@@ -38,7 +38,7 @@ namespace ContactsOrganizer.ViewModels
                 Id = this.Id,
                 Lname = this.AddNom,
                 Fname = this.AddPrenom,
-                Initals = this.AddInit,
+                Initials = this.AddInit,
                 Photo = "https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png",
                 WorkEmail = this.AddCourrielWork,
                 PrivateEmail = this.AddCourrielPerso,

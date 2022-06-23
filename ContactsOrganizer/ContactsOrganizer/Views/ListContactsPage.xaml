@@ -13,7 +13,7 @@
                     <Grid Padding="10" RowDefinitions="Auto, *" ColumnDefinitions="Auto, *" x:DataType="model:Contact">
                         <StackLayout Grid.RowSpan="3" VerticalOptions="Center" HorizontalOptions="Center" Margin="50,0,-50,0">
                         <Ellipse Stroke="black" StrokeThickness="2" HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="50" WidthRequest="50"></Ellipse>
-                            <Label Text="{Binding Initals}" TextColor="Black" VerticalOptions="Center" HorizontalOptions="Center" Margin="0,-40,0,0"/>
+                            <Label Text="{Binding Initials}" TextColor="Black" VerticalOptions="Center" HorizontalOptions="Center" Margin="0,-40,0,0"/>
                         </StackLayout>
                         <Label Grid.Column="1"
                                 Text="{Binding Fname}"
